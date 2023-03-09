@@ -35,6 +35,7 @@ module SidekiqScheduler
       config.enabled = enabled unless enabled.nil?
       config.dynamic = dynamic unless dynamic.nil?
       config.dynamic_every = dynamic_every unless dynamic_every.nil?
+      Sidekiq.reload_schedule!
       unless Sidekiq.schedule.nil? || (Sidekiq.schedule.respond_to?(:empty?) && Sidekiq.schedule.empty?)
         config.schedule = Sidekiq.schedule
       end
